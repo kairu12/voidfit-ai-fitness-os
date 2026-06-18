@@ -333,28 +333,40 @@ The database is built on **IndexedDB** using **Dexie 4** for lightning-fast quer
 
 ## 🚀 Setup & Installation
 
-### Prerequisites
+The project includes an **automated setup system script** that verifies your Node.js requirements, automatically creates environment variables from templates, installs dependencies, and runs verification test suites.
+
+### Quick Automated Setup
+Simply run:
+```bash
+npm run setup
+```
+This executes the automated setup module (`node setup.js`), which:
+1. **Checks Node.js compatibility** ($\ge$ version 18).
+2. **Generates environment variables** by duplicating `.env.example` into `.env` (without overwriting existing configurations).
+3. **Installs all node modules** and libraries via `npm install`.
+4. **Performs unit & integration tests** to verify compiled builds.
+
+---
+
+### Manual Setup Step-by-Step
+
+#### 1. Prerequisites
 - **Node.js**: `18.x` or higher (tested with `20.x` and `22.x`)
 - **npm**: `9.x` or higher
 
-### 1. Clone & Install Dependencies
-Clone the repository and run `npm install`:
-
+#### 2. Install Dependencies
 ```bash
 git clone https://github.com/kairu12/voidfit-ai-fitness-os.git
 cd voidfit-ai-fitness-os
 npm install
 ```
 
-### 2. Configure Environment Variables
-Create a local `.env` file in the root directory (based on [.env.example](file:///c:/Users/black/Downloads/Levelup-app-production-ready/Levelup-app-clean/.env.example)):
-
+#### 3. Configure Environment Variables
+Create a local `.env` file in the root directory:
 ```bash
 cp .env.example .env
 ```
-
-Open `.env` and provide your API keys:
-
+Open `.env` and provide your credentials:
 ```env
 # Google OAuth Client ID (Required for Google login)
 VITE_GOOGLE_CLIENT_ID=your_google_oauth_client_id
@@ -368,14 +380,15 @@ VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 VITE_FIREBASE_APP_ID=your_app_id
 ```
 
-### 3. Local Development Scripts
+### ⚙️ Local Scripts Reference
 
 | Command | Action | URL / Output |
 | :--- | :--- | :--- |
-| `npm run dev` | Runs local dev server | `http://localhost:3000` |
-| `npm run build` | Compiles codebase for production | Outputs to `dist/` |
-| `npm run preview` | Runs local preview of production build | `http://localhost:3000` |
-| `npm run test` | Runs all Vitest suites | Console reports |
+| **`npm run setup`** | Runs the complete automated setup checklist | Console logs |
+| **`npm run dev`** | Runs the Vite local development server | `http://localhost:3000` |
+| **`npm run build`** | Compiles project files into build bundles | Outputs to `dist/` |
+| **`npm run preview`**| Launches a preview of the compiled build | `http://localhost:3000` |
+| **`npm run test`** | Executes the entire Vitest verification suite | Console reports |
 
 ---
 
