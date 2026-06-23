@@ -385,24 +385,28 @@ export const useUserStore = create<UserStoreState>()(
                 user: { ...state.user, ...updates },
             })),
             updateAiProfile: (profile) => set((state) => {
-                const existing = state.user.userState?.aiAdaptationProfile || createDefaultAdaptationProfile();
+                // FIX: Ensure userState exists before accessing it
+                const userState = state.user.userState || { aiAdaptationProfile: createDefaultAdaptationProfile(), behavioralPatterns: createDefaultBehavioralPatterns() };
+                const existing = userState.aiAdaptationProfile || createDefaultAdaptationProfile();
                 return {
                     user: {
                         ...state.user,
                         userState: {
-                            ...state.user.userState!,
+                            ...userState,
                             aiAdaptationProfile: { ...existing, ...profile, lastAdaptation: new Date().toISOString() },
                         },
                     },
                 };
             }),
             updateBehavioralPatterns: (patterns) => set((state) => {
-                const existing = state.user.userState?.behavioralPatterns || createDefaultBehavioralPatterns();
+                // FIX: Ensure userState exists before accessing it
+                const userState = state.user.userState || { aiAdaptationProfile: createDefaultAdaptationProfile(), behavioralPatterns: createDefaultBehavioralPatterns() };
+                const existing = userState.behavioralPatterns || createDefaultBehavioralPatterns();
                 return {
                     user: {
                         ...state.user,
                         userState: {
-                            ...state.user.userState!,
+                            ...userState,
                             behavioralPatterns: { ...existing, ...patterns, lastAnalysis: new Date().toISOString() },
                         },
                     },
@@ -414,5 +418,4 @@ export const useUserStore = create<UserStoreState>()(
         }
     )
 );
-
 
